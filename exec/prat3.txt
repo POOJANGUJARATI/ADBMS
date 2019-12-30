@@ -1,0 +1,66 @@
+declare
+ empno number;
+ empcount number;
+ bsal number(5,0);
+ hra number;
+ net number;
+ da number;
+begin
+ empno:= :Enter_empno;
+ -- dbms_output.put_line("Enter: "||:empno);
+ select count(*) into empcount from emp where emp=empno;
+ if empcount=1 then
+  select sal into bsal from emp where emp=empno;
+  hra:= bsal*0.1;
+  da:=bsal*0.6;
+  net:=bsal+hra+da;
+  dbms_output.put_line('Net Salary: '||net);
+ else
+  dbms_output.put_line('No Data found!');
+ end if;
+end;
+
+
+
+declare
+ empno number;
+ bsal number(5,0);
+begin
+ empno:= :Enter_empno;
+ select sal into bsal from emp where emp=empno;
+ if bsal>=60000 then
+  dbms_output.put_line('very high salary!');
+ elsif bsal>=30000 and bsal<60000 then
+  dbms_output.put_line('high salary!');
+ elsif bsal>=10000 and bsal<30000 then
+  dbms_output.put_line('medium salary!');
+ elsif bsal<10000 then
+  dbms_output.put_line('less salary!');
+ end if;
+end;
+
+
+
+declare
+ empno number;
+ mon number;
+begin
+ empno:= :Enter_empno;
+ select extract(month from hiredate) into mon from emp where emp=empno;
+ case mon
+  when 1 then dbms_output.put_line('Jan');
+  when 2 then dbms_output.put_line('Feb');
+  when 3 then dbms_output.put_line('Mar');
+  when 4 then dbms_output.put_line('Apr');
+  when 5 then dbms_output.put_line('May');
+  when 6 then dbms_output.put_line('Jun');
+  when 7 then dbms_output.put_line('Jul');
+  when 8 then dbms_output.put_line('Aug');
+  when 9 then dbms_output.put_line('Sep');
+  when 10 then dbms_output.put_line('Oct');
+  when 11 then dbms_output.put_line('Nov');
+  when 12 then dbms_output.put_line('Dec');
+ end case;
+end;
+
+

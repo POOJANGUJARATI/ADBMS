@@ -1,0 +1,27 @@
+select to_char(SYSDATE,'DD-MM-YYYY HH24:MI:SS') "now" from dual
+select sys_context('USERENV','SESSION_USER') as "user" from dual
+select sys_context('USERENV','CURRENT_SCHEMA') as "user" from dual
+
+1. Create a trigger which displays a message “Employee added” after inserting a new record into the employee table. 
+=>CREATE OR REPLACE TRIGGER emp_insert
+AFTER INSERT ON emp
+BEGIN
+DBMS_OUTPUT.PUT_LINE('Employee added!');
+END;
+
+2. Create a trigger that will cause an error message and display old and new salary when an update occurs that would result in a salary increase greater than 2000 of the current salary.
+=>CREATE OR REPLACE TRIGGER updateemp
+BEFORE UPDATE ON emp
+FOR EACH ROW WHEN((new.sal-old.sal) > 2000)
+BEGIN
+DBMS_OUTPUT.PUT_LINE(:new.sal);
+DBMS_OUTPUT.PUT_LINE(:old.sal);
+END updateemp;
+
+3. Create a trigger before employee detail is deleted, it also modifies the data into the department table.    EMP( empno,name,salary,deptno,designation)  DEPT(deptno,name,noofemployee,Total_salary) 
+=>create or replace trigger emp_dept_trigger
+after delete on emp
+for each row
+begin
+update dept set noofemp = noofemp-1 where deptno = :old.deptno;
+end; 

@@ -1,0 +1,138 @@
+1)
+declare
+i number:= 1;
+fact number:= 1;
+ino number;
+procedure ex_1(no in number)
+is
+begin
+ while i<=no loop
+  fact:= fact * i;
+  i:=i+1;
+ end loop;
+ dbms_output.put_line(fact);
+end;
+begin
+ ino:= :Enter_Number;
+ ex_1(ino);
+end;
+
+
+2)
+create or replace procedure insert_emp(emp in number, ename in varchar2, sal in number, hiredate in date)
+as
+begin
+ insert into emp values(emp,ename,sal,hiredate);
+ dbms_output.put_line('Employee Inserted!');
+end;
+
+create or replace procedure delete_emp(eid in number)
+as
+begin
+ delete emp where emp=eid;
+ dbms_output.put_line('Employee Deleted!');
+end;
+
+create or replace procedure update_emp(eid in number, e_name in varchar2, salary in number, hire_date in date)
+as
+begin
+ update emp set ename=e_name,sal=salary,hiredate=hire_date where emp=eid;
+ dbms_output.put_line('Employee Updated!');
+end;
+
+declare
+ c number;
+ eid number;
+begin
+ c:= :1_Insert_2_Delete_3_Update;
+ case c
+  when 1 then insert_emp(5,'jay',10000,'01-DEC-19');
+  when 2 then update_emp(4,'ja',50000,'01-NOV-19');
+  when 3 then delete_emp(3);
+ end case;
+end;
+
+3)
+declare
+n1 number;
+n2 number;
+n3 number;
+temp number;
+procedure ex_3(no1 in number, no2 in number, no3 in number, max out number)
+is
+begin
+ if no1 >= no2 and no1 >= no3 then
+  max:= no1;
+ elsif no2 >= no1 and no2 >= no3 then
+  max:= no2;
+ elsif no3 >= no2 and no3 >= no1 then
+  max:= no3;
+ end if;
+end;
+begin
+ n1:= :Enter_Number_1;
+ n2:= :Enter_Number_2;
+ n3:= :Enter_Number_3;
+ ex_3(n1,n2,n3,temp);
+ dbms_output.put_line('Max value is '||temp);
+end;
+
+4)
+create or replace procedure ex_4(shape in varchar2, n1 in number, n2 in number:=1, area out number)
+as
+begin
+ if shape='circle' then
+  area:= 3.14*n1*n1;
+ elsif shape='triangle' then
+  area:=0.5*n1*n2;
+ elsif shape='square' then
+  area:=n1*n1;
+ else area:=0;
+ end if;
+end;
+
+declare
+shape varchar2(10);
+n1 number:=10;
+n2 number:=5;
+area number;
+begin
+ shape:= :Enter_Shape;
+ ex_4(shape,n1,n2,area);
+ dbms_output.put_line('Area of '||shape||' is '||area);
+end;
+
+5)
+create or replace procedure ex_5(m1 in number, m2 in number, m3 in number, per out number, class out varchar2)
+as
+begin
+ per:=(m1+m2+m3)/3;
+ if per>=75 then
+  class:= 'Disctiction';
+ elsif per>=60 and per<75 then
+  class:= 'First';
+ elsif per>=50 and per<60 then
+  class:= 'Second';
+ elsif per>=35 and per<50 then
+  class:='Pass';
+ else class:= 'Fail';
+ end if;
+end;
+
+declare
+roll varchar2(10);
+n1 number;
+n2 number;
+n3 number;
+perc number;
+class varchar2(20);
+begin
+ roll:= :Enter_Roll_No;
+ n1:= :Enter_Sub_1_Marks;
+ n2:= :Enter_Sub_2_Marks;
+ n3:= :Enter_Sub_3_Marks;
+ ex_5(n1,n2,n3,perc,class);
+ dbms_output.put_line('Roll No '||roll);
+ dbms_output.put_line('Percentage '||perc||'%');
+ dbms_output.put_line('Class '||class);
+end;
