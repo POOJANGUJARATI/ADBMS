@@ -1,0 +1,33 @@
+1.
+db.createCollection("Books")
+db.Books.insert([{ "title" : "C Programming", "author" : "balagurusamy", "publisher" : "tata", "pub_year" : 2001, "keywords" : "C" },
+{  "title" : "java", "author" : "e-balagurusamy", "publisher" : "tata", "pub_year" : 2002, "keywords" : "Web" },
+{  "title" : "js", "author" : "Sharma", "publisher" : "TMH", "pub_year" : 2015, "keywords" : "Web" },
+{  "title" : "C Programming", "author" : "Sunil Singh", "publisher" : "tata", "pub_year" : 2003, "keywords" : "Web" },
+{ "title" : "C Programming", "author" : "John", "publisher" : "tata", "pub_year" : 2003, "keywords" : "Web" }])
+
+2.
+db.Books.find({"author":"John"})
+o/p:
+{ "_id" : ObjectId("5e37a6544f83909229f07bb2"), "title" : "C Programming", "author" : "John", "publisher" : "tata", "pub_year" : 2003, "keywords" : "Web" }
+
+3.
+db.Books.find({"pub_year":2015})
+o/p:
+{ "_id" : ObjectId("5e37a5f84f83909229f07bb0"), "title" : "js", "author" : "Sharma", "publisher" : "TMH", "pub_year" : 2015, "keywords" : "Web" }
+
+4.
+db.Books.find({"title":"java"})
+o/p:
+{ "_id" : ObjectId("5e37a5b94f83909229f07baf"), "title" : "java", "author" : "e-balagurusamy", "publisher" : "tata", "pub_year" : 2002, "keywords" : "Web" }
+
+5.
+ db.Books.find({"author":"Sharma","publisher":"TMH"})
+o/p:
+{ "_id" : ObjectId("5e37a5f84f83909229f07bb0"), "title" : "js", "author" : "Sharma", "publisher" : "TMH", "pub_year" : 2015, "keywords" : "Web" }
+
+6.
+db.Books.find({"keywords":"C"})
+
+o/p:
+{ "_id" : ObjectId("5e37a4e2a6eaec8e515a391c"), "title" : "C Programming", "author" : "balagurusamy", "publisher" : "tata", "pub_year" : 2001, "keywords" : "C" }
